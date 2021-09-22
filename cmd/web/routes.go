@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/Laura470/bookings/pkg/config"
-	"github.com/Laura470/bookings/pkg/handlers"
+	"github.com/Laura470/bookings/internal/config"
+	"github.com/Laura470/bookings/internal/handlers"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
@@ -18,6 +18,15 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Get("/generals-quarters", handlers.Repo.Generals)
+	mux.Get("/majors-suite", handlers.Repo.Majors)
+
+	mux.Get("/search-availibility", handlers.Repo.Availibility)
+	mux.Post("/search-availibility", handlers.Repo.PostAvailibility)
+	mux.Post("/search-availibility-json", handlers.Repo.AvailibilityJSON)
+
+	mux.Get("/contact", handlers.Repo.Contact)
 
 	//per potere visualizzare i file statici nelle mie pagine html
 	fileServer := http.FileServer(http.Dir("./static/"))
