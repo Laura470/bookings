@@ -132,7 +132,23 @@
               confirmButtonText: confirmButtonText
             })
           }
-    
+
+          //se hai un messaggio di errore che no è empty facci qualcosa
+        {{with .Error}}
+            notify("{{.}}", "error");
+        {{end}}
+
+        {{with .Flash}}
+        notify("{{.}}", "success");
+        {{end}}
+
+        {{with .Warning}}
+        notify("{{.}}", "warning");
+        {{end}}
+
+
+
+
             // dovrebbe essere un esempio di module con javascript
            function Prompt() {
             let toast = function (c) {

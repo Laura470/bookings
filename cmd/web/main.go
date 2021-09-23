@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/Laura470/bookings/internal/config"
 	"github.com/Laura470/bookings/internal/handlers"
+	"github.com/Laura470/bookings/internal/models"
 	"github.com/Laura470/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
@@ -20,9 +22,13 @@ var session *scs.SessionManager
 // main is the main application function
 func main() {
 
+	//what i'm going to put in the session
+	gob.Register(models.Reservation{})
+
 	//change this to true when in production
 	//in here so it is available outside the main for the main package (middleware is in the main package)
 	app.InProduction = false
+
 	session = scs.New() //tolto il due punti
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true //anche dopo il browser è chiuso
@@ -41,7 +47,8 @@ func main() {
 	//chiamo la funzione CreateTemplateCache dal package render
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
-		log.Fatal("cannot create template cache")
+		//log.Fatal("cannot create template cache")
+		log.Fatal(err)
 	}
 
 	//prende il suo valore da render, fare attenzione all'import
