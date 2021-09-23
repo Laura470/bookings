@@ -18,7 +18,6 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
-	mux.Get("/make-reservation", handlers.Repo.Reservation)
 	mux.Get("/generals-quarters", handlers.Repo.Generals)
 	mux.Get("/majors-suite", handlers.Repo.Majors)
 
@@ -27,6 +26,9 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Post("/search-availibility-json", handlers.Repo.AvailibilityJSON)
 
 	mux.Get("/contact", handlers.Repo.Contact)
+
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Post("/make-reservation", handlers.Repo.PostReservation)
 
 	//per potere visualizzare i file statici nelle mie pagine html
 	fileServer := http.FileServer(http.Dir("./static/"))
