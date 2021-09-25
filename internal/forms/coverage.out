@@ -1,0 +1,18 @@
+mode: set
+github.com/Laura470/bookings/internal/forms/errors.go:6.44,8.2 1 1
+github.com/Laura470/bookings/internal/forms/errors.go:11.42,13.18 2 1
+github.com/Laura470/bookings/internal/forms/errors.go:17.2,17.14 1 1
+github.com/Laura470/bookings/internal/forms/errors.go:13.18,15.3 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:18.29,20.2 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:23.33,28.2 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:32.43,33.31 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:33.31,35.37 2 1
+github.com/Laura470/bookings/internal/forms/forms.go:35.37,37.4 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:43.39,45.13 2 1
+github.com/Laura470/bookings/internal/forms/forms.go:49.2,49.13 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:45.13,48.3 2 1
+github.com/Laura470/bookings/internal/forms/forms.go:53.57,56.21 2 1
+github.com/Laura470/bookings/internal/forms/forms.go:60.2,60.13 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:56.21,59.3 2 1
+github.com/Laura470/bookings/internal/forms/forms.go:64.38,65.40 1 1
+github.com/Laura470/bookings/internal/forms/forms.go:65.40,67.3 1 1

@@ -1,0 +1,10 @@
+mode: set
+github.com/Laura470/bookings/cmd/web/main.go:23.13,26.16 2 0
+github.com/Laura470/bookings/cmd/web/main.go:30.2,37.16 4 0
+github.com/Laura470/bookings/cmd/web/main.go:26.16,28.3 1 0
+github.com/Laura470/bookings/cmd/web/main.go:41.18,62.16 10 1
+github.com/Laura470/bookings/cmd/web/main.go:69.2,77.12 6 1
+github.com/Laura470/bookings/cmd/web/main.go:62.16,66.3 2 0
+github.com/Laura470/bookings/cmd/web/middleware.go:10.45,20.2 3 1
+github.com/Laura470/bookings/cmd/web/middleware.go:23.50,25.2 1 1
+github.com/Laura470/bookings/cmd/web/routes.go:12.49,39.2 18 1
