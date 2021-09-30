@@ -44,13 +44,13 @@ func TestRenderTemplate(t *testing.T) {
 	//devo creare una variabile ww, lo faccio nel setup
 	var ww myWriter
 
-	err = RenderTemplate(&ww, r, "home.page.tmpl", &models.TemplateData{})
+	err = Template(&ww, r, "home.page.tmpl", &models.TemplateData{})
 
 	if err != nil {
 		t.Error("error writing template to browser")
 	}
 
-	err = RenderTemplate(&ww, r, "non_existent.page.tmpl", &models.TemplateData{})
+	err = Template(&ww, r, "non_existent.page.tmpl", &models.TemplateData{})
 
 	if err == nil {
 		t.Error("rendered template that doesn't extist!")
@@ -73,7 +73,7 @@ func getSession() (*http.Request, error) {
 }
 
 func TestNewTemplates(t *testing.T) {
-	NewTemplates(app)
+	NewRenderer(app)
 }
 
 func TestCreateTemplateCache(t *testing.T) {

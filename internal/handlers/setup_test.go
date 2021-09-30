@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/Laura470/bookings/internal/config"
+	"github.com/Laura470/bookings/internal/driver"
 	"github.com/Laura470/bookings/internal/models"
 	"github.com/Laura470/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
@@ -23,6 +24,7 @@ var app config.AppConfig
 var session *scs.SessionManager
 var pathToTemplates = "./../../templates"
 var functions = template.FuncMap{}
+var db *driver.DB
 
 func getRoutes() http.Handler {
 
@@ -62,9 +64,9 @@ func getRoutes() http.Handler {
 	//setto la variabile a false
 	app.UseCache = true
 
-	repo := NewRepo(&app)
+	repo := NewRepo(&app, db)
 	NewHandlers(repo)
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 
 	mux := chi.NewRouter()
 	mux.Use(middleware.Recoverer)

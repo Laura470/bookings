@@ -35,11 +35,8 @@
 
 
     <div class="row">
-
         <div class="col text-center">
-
-            <a id="check-availability-button-generals" href="#!" class="btn btn-success">Check Availability</a>
-
+            <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
         </div>
     </div>
 </div>
@@ -49,7 +46,7 @@
 {{define "js"}}
 
   <script>
-    document.getElementById("check-availability-button-generals").addEventListener("click", function(){
+    document.getElementById("check-availability-button").addEventListener("click", function(){
       let html = `
       <form id="check-availability-form" action="" method="post" novalidate class="needs-validation search-form">
         <div class="form-row">
@@ -74,6 +71,7 @@
            const rp = new DateRangePicker(elem, {
                     format: 'yyyy-mm-dd',
                     showOnFocus: true,
+                    minDate: new Date(),
             })
         }, 
 
@@ -89,6 +87,7 @@
           let formData = new FormData(form);
           // devo fornire anche il token, lo inserisco con append con il nome che ha nel template
           formData.append("csrf_token", "{{.CSRFToken}}");
+          formData.append("room_id", "1")
 
           fetch('/search-availibility-json', {
             method: "post",
@@ -96,9 +95,25 @@
           })
             .then(response => response.json())
             .then(data => {
-              console.log(data);
-              console.log(data.ok);
-              console.log(data.message);
+              if (data.ok){
+                attention.custom({
+                  icon: 'success',
+                  showConfirmButton: false,
+                  msg: '<p>Room is available!</p>' 
+                  + '<p><a href="/book-room?id='
+                    + data.room_id
+                    +'&s='
+                    + data.start_date
+                    + '&e='
+                    +data.end_date
+                    +'" class="btn btn-primary">'
+                   + 'Book now!</a></p>'
+                })
+              }else{
+                attention.error({ 
+                  msg: "No availability",
+                })
+              }
             })
         }
       });
