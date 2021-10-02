@@ -49,6 +49,14 @@ func TestMain(m *testing.M) {
 	//inizializzo la session in config
 	app.Session = session
 
+	//creo una funzione che mi simula la funzione listen email
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
+	defer close(mailChan)
+
+	//chiamo una funzione che creo apposta per il test (più sotto)
+	listenForMail()
+
 	//chiamo la funzione CreateTemplateCache dal package render
 	tc, err := CreateTestTemplateCache()
 	if err != nil {
@@ -66,6 +74,14 @@ func TestMain(m *testing.M) {
 	NewHandlers(repo)
 	render.NewRenderer(&app)
 	os.Exit(m.Run())
+}
+
+func listenForMail() {
+	go func() {
+		for {
+			<-app.MailChan
+		}
+	}()
 }
 
 func getRoutes() http.Handler {

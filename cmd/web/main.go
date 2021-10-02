@@ -34,6 +34,19 @@ func main() {
 	}
 	defer db.SQL.Close()
 
+	/*
+		//setting an email to be send whne the app startswith standar library
+		from := "me@here.com"
+		auth := smtp.PlainAuth("", from, "", "localhost")
+		err = smtp.SendMail("localhost:1025", auth, from, []string{"you@there.com"}, []byte("Hello world"))
+		if err != nil {
+			log.Println(err)
+		}*/
+
+	defer close(app.MailChan)
+	fmt.Println("Starting mail listener...")
+	listenForMail()
+
 	fmt.Printf("Starting application on port %s\n", portNumber)
 
 	srv := &http.Server{
@@ -52,6 +65,9 @@ func run() (*driver.DB, error) {
 	gob.Register(models.User{})
 	gob.Register(models.Room{})
 	gob.Register(models.Restriction{})
+
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
 
 	//change this to true when in production
 	//in here so it is available outside the main for the main package (middleware is in the main package)
