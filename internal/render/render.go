@@ -7,21 +7,48 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"github.com/Laura470/bookings/internal/config"
 	"github.com/Laura470/bookings/internal/models"
 	"github.com/justinas/nosurf"
 )
 
-var functions = template.FuncMap{}
+//FuncMap provvede una map di nomi e funzioni disponibili nei template
+var functions = template.FuncMap{
+	"humanDate":  HumanDate,
+	"formatDate": FormatDate,
+	"iterate":    Iterate,
+}
 
 var app *config.AppConfig
 
 var pathToTemplates = "./templates"
 
+//Iterate resturns a slice of ints starting at 1 going to count
+func Iterate(count int) []int {
+	var i int
+	var items []int
+
+	for i = 1; i <= count; i++ {
+		items = append(items, i)
+	}
+	return items
+}
+
 // NewRenderer set the config for the template package
 func NewRenderer(a *config.AppConfig) {
 	app = a
+}
+
+//HumanDatereturn time in yyy mm dd format
+func HumanDate(t time.Time) string {
+	return t.Format("2006-01-02")
+}
+
+//FormatDate
+func FormatDate(t time.Time, f string) string {
+	return t.Format(f)
 }
 
 //AddDefaultData aggiunge data a ogni pagina, lo uso per il tocken csrf
@@ -30,6 +57,9 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 	td.Error = app.Session.PopString(r.Context(), "error")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
 	td.CSRFToken = nosurf.Token(r)
+	if app.Session.Exists(r.Context(), "user_iD") {
+		td.IsAuthenticated = 1
+	}
 	return td
 }
 

@@ -26,28 +26,47 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-    <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Rooms
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="/generals-quarters">General's Quarters</a>
-        <a class="dropdown-item" href="/majors-suite">Major's Suite</a>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/search-availibility">Book Now</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/contact">Contact</a>
-    </li>
-    
+        <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Rooms
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/generals-quarters">General's Quarters</a>
+            <a class="dropdown-item" href="/majors-suite">Major's Suite</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/search-availibility">Book Now</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/user/login">Login</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
+            <a class="dropdown-item" href="/user/logout">Logout</a>
+            </div>
+        </li>
+        <li class="nav-item">
+        {{if eq .IsAuthenticated 1}}
+            <a class="nav-link" href="/user/logout">Logout in if</a>
+            {{else}}
+            <a class="nav-link" href="/user/login">Login in if</a>
+            {{end}}
+        </li>
+
     </ul>
     </div>
     </nav>

@@ -80,12 +80,6 @@
                         c.willOpen();
                       }
                     },  
-                    preConfirm: () => {
-                      return [
-                        document.getElementById('start').value,
-                        document.getElementById('end').value
-                      ]
-                    },
                     // dopo che il modal si è aperto, rimuove disabled e appare datapicker
                     didOpen: () => {
                       if (c.didOpen !== undefined){
