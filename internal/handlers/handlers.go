@@ -505,7 +505,7 @@ func (m *Repository) ShowLogin(w http.ResponseWriter, r *http.Request) {
 
 func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
 
-	//previene gli attacchi tramite furto del token
+	//previene gli attacchi tramite furto del token  session fixation attac
 	_ = m.App.Session.RenewToken(r.Context())
 
 	err := r.ParseForm()
@@ -535,6 +535,7 @@ func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//metto l'id nella session
 	m.App.Session.Put(r.Context(), "user_id", id)
 	m.App.Session.Put(r.Context(), "flash", "Logged in succesfully")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -826,7 +827,8 @@ func (m *Repository) AdminReservationsCalendar(w http.ResponseWriter, r *http.Re
 		blockMap := make(map[string]int)
 
 		//ora devo mettere le informazioni utili nelle maps
-		//faccio passare i giorni del mese, così creo la coppia giorno(key) e 0 (value)
+		//faccio passare i giorni del mese, così creo la coppia giorno(key) e 0 (value) con valore di default
+		//così sono inizializzate
 		for d := firstOfMonth; !d.After(lastOfMonth); d = d.AddDate(0, 0, 1) {
 			reservationMap[d.Format("2006-01-2")] = 0
 			blockMap[d.Format("2006-01-2")] = 0
@@ -903,6 +905,9 @@ func (m *Repository) AdminPostReservationsCalendar(w http.ResponseWriter, r *htt
 	form := forms.New(r.PostForm)
 	//le faccio passare
 
+	//quando uso il toggle cambio nome all'item in remove o add???
+	//in questo modo so cosa fare????
+
 	for _, x := range rooms {
 		//grab the blockmap from the session and cast it into a map string
 		//that is the data before the user submits any changes
@@ -939,7 +944,7 @@ func (m *Repository) AdminPostReservationsCalendar(w http.ResponseWriter, r *htt
 			exploded := strings.Split(name, "_")
 			//add_block_{{$roomID}}_ {{mese anno}}voglio prendere il roomID
 			roomID, _ := strconv.Atoi(exploded[2])
-			t, err := time.Parse("2006-01-02", exploded[3])
+			t, err := time.Parse("2006-01-2", exploded[3])
 			if err != nil {
 				helpers.ServerError(w, err)
 				return

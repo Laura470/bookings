@@ -225,11 +225,13 @@ func (m *postgresDBRepo) Authenticate(email, testPassword string) (int, string, 
 	var id int
 	var hashedPassword string
 	row := m.DB.QueryRowContext(ctx, "select id, password from users where email = $1", email)
+	//faccio lo scan per prelevare i due valori
 	err := row.Scan(&id, &hashedPassword)
 	if err != nil {
 		return id, "", err
 	}
 
+	//faccio l'encrypt della password fornita per vedere se match l'hashed nel mio db
 	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(testPassword))
 	if err == bcrypt.ErrMismatchedHashAndPassword {
 		return 0, "", errors.New("incorrect password")
